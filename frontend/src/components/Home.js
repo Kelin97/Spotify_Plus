@@ -16,18 +16,19 @@ function Home() {
             items[temp_pair[0]] = temp_pair[1];
             i++;
         }
-        console.log(items.refresh_token);
-        window.sessionStorage.setItem('key1', 'value1');
-        return hash[1]
+
+        return items;
     }
-  
-    var setsession = window.sessionStorage.setItem("animals", "cat");
-	var getsession = window.sessionStorage.getItem("animals");
-	console.log(getsession);
+    // Use this later to save the refresh token
+    // var setsession = window.sessionStorage.setItem("animals", "cat");
+	// var getsession = window.sessionStorage.getItem("animals");
+    var params = URLHashParser();
+    
+	
     return(
         <div>
             <h1>Just some bs</h1>
-            <h2>Returned hash: {URLHashParser()}</h2>
+            <h2>Returned hash: {params.refresh_token}</h2>
         </div>
     )
 }
