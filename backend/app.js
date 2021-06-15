@@ -32,6 +32,7 @@ var generateRandomString = function(length) {
   return text;
 };
 
+//We can update this state variable to ask for more permissions from user
 var stateKey = 'spotify_auth_state';
 
 var app = express();
@@ -46,7 +47,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email user-read-playback-state';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -137,9 +138,36 @@ app.get('/refresh_token', function(req, res) {
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
+      
       res.send({
         'access_token': access_token
       });
+    }
+  });
+});
+
+app.get('/current_song', function(req, res) {
+  access_token = req.query.access_token;
+  console.log('access token: ' + access_token);
+
+  var request_text = {
+    url: 'https://api.spotify.com/v1/me/player/currently-playing',
+    headers: { 'Authorization' : 'Bearer ' + access_token,
+                'Content-Type': "application/json",
+                'Accept': "application/json"}
+  }
+  
+  request.get(request_text, function(error, response, body) {
+
+    if (!error && response.statusCode === 200) {
+      var currently_playing_type = JSON.stringify(response.device);
+      //console.log(currently_playing_type);
+      res.send({
+        'currently_playing_type': currently_playing_type
+      });
+    }
+    else{
+      console.log(error + '\n' + response.statusCode + '\n' + body)
     }
   });
 });
