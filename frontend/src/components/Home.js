@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 
 function Home() {
-    const [song, setSong] = useState('No song playing');
+    const [current_song, setSong] = useState({});
     const URLHashParser = () => {
         var hash = window.location.hash.substr(1).split('&');
 
@@ -26,25 +26,21 @@ function Home() {
     // var setsession = window.sessionStorage.setItem("animals", "cat");
 	// var getsession = window.sessionStorage.getItem("animals");
     
-    var params = URLHashParser();
-    
-    
+    const params = URLHashParser();
+  
     useEffect(
         () => {
-            console.log(params.access_token)
             fetch('http://localhost:8888/current_song?access_token=' + params.access_token,{
                 method: 'GET'
             })
-            .then(resp => resp.json(), () => console.log('failure'))
-            .then(data => console.log(data))
+            .then(resp => resp.json(), (resp) => console.log(resp))
+            .then(data => setSong(data))
         }, []
     )
-	
+    console.log(current_song.track_name);
     return(
         <div>
-            <h1>Just some bs</h1>
-            <h2>Returned hash: {}</h2>
-            <h3>Returned Song: {song}</h3>
+            <Song song_name = {current_song.track_name} artist_name = {} song_key = {}></Song>
         </div>
     )
 }

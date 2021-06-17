@@ -146,31 +146,78 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+// Endpoint for receiving currently playing tracks
 app.get('/current_song', function(req, res) {
   access_token = req.query.access_token;
   console.log('access token: ' + access_token);
 
-  var request_text = {
+  const request_current_track = {
     url: 'https://api.spotify.com/v1/me/player/currently-playing',
     headers: { 'Authorization' : 'Bearer ' + access_token,
                 'Content-Type': "application/json",
                 'Accept': "application/json"}
   }
   
-  request.get(request_text, function(error, response, body) {
+  request.get(request_current_track, (error, response, body) => {
 
     if (!error && response.statusCode === 200) {
-      var currently_playing_type = JSON.stringify(response.device);
-      //console.log(currently_playing_type);
-      res.send({
-        'currently_playing_type': currently_playing_type
+      //Get json response and turn it into an object
+      const song_id = JSON.parse(body).item.id;
+      const artist_name = JSON.parse(body).item.artists[0].name;
+      const album_name = JSON.parse(body).item.album.name;
+      const track_name = JSON.parse(body).item.name;
+      const album_picture_url = JSON.parse(body).item.album.images[0].url;
+
+
+      //Get Audio Features for a Track
+      const request_track_info = {
+        url: '	https://api.spotify.com/v1/audio-features/' + song_id,
+        headers: { 'Authorization' : 'Bearer ' + access_token,
+                    'Content-Type': "application/json",
+                    'Accept': "application/json"}
+      }
+      request.get(request_track_info, (song_error, song_res, song_body) => {
+
+        if (!error && response.statusCode === 200) {
+          const track_info = JSON.parse(song_body);
+
+          //Send song data back to frontend
+          res.send({
+            'artist_name' : artist_name,
+            'album_name' : album_name,
+            'track_name' : track_name,
+            'track_info' : track_info,
+            'album_picture_url' : album_picture_url
+          });
+        }
+
       });
     }
-    else{
-      console.log(error + '\n' + response.statusCode + '\n' + body)
+    // Possible error if no track is curently playing
+    else if (!error && response.statusCode === 204){
+      res.statusCode(204).send('No Content')
     }
-  });
-});
+    // Handle all other errors
+    else {
+      console.log(response.statusCode);
+    } 
+  }); //end of request
+
+});// GET '/current_song'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 console.log('Listening on 8888');
 app.listen(8888);
