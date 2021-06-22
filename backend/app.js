@@ -171,7 +171,7 @@ app.get('/current_song', function(req, res) {
 
       //Get Audio Features for a Track
       const request_track_info = {
-        url: '	https://api.spotify.com/v1/audio-features/' + song_id,
+        url: 'https://api.spotify.com/v1/audio-features/' + song_id,
         headers: { 'Authorization' : 'Bearer ' + access_token,
                     'Content-Type': "application/json",
                     'Accept': "application/json"}
@@ -180,6 +180,9 @@ app.get('/current_song', function(req, res) {
 
         if (!error && response.statusCode === 200) {
           const track_info = JSON.parse(song_body);
+          const track_tempo = track_info.tempo
+          const track_key = track_info.key;
+          const track_timesig = 
 
           //Send song data back to frontend
           res.send({
@@ -187,6 +190,7 @@ app.get('/current_song', function(req, res) {
             'album_name' : album_name,
             'track_name' : track_name,
             'track_info' : track_info,
+            'track_key'  : track_key,
             'album_picture_url' : album_picture_url
           });
         }
@@ -195,7 +199,7 @@ app.get('/current_song', function(req, res) {
     }
     // Possible error if no track is curently playing
     else if (!error && response.statusCode === 204){
-      res.statusCode(204).send('No Content')
+      res.status(204).send('No Content');
     }
     // Handle all other errors
     else {

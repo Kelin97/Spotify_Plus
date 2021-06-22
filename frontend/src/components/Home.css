@@ -1,0 +1,25 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: white;
+    height: 1000px;
+}
+
+.home-header {
+    padding: 30px;
+    width: 100%;
+    background: #1abc9c;   
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    align-self: stretch;
+    position: fixed;
+}
+

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Song from './Song';
-import Button from 'react-bootstrap/Button';
-
+import './Home.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function Home() {
@@ -27,7 +27,7 @@ function Home() {
 	// var getsession = window.sessionStorage.getItem("animals");
     
     const params = URLHashParser();
-  
+    
     useEffect(
         () => {
             fetch('http://localhost:8888/current_song?access_token=' + params.access_token,{
@@ -37,10 +37,21 @@ function Home() {
             .then(data => setSong(data))
         }, []
     )
-    console.log(current_song.track_name);
+    console.log(current_song);
+    //const test = current_song.track_info.;
+    //<Song song_name = {current_song.track_name} artist_name = {current_song.artist_name} song_key = {current_song.track_key}></Song>
     return(
         <div>
-            <Song song_name = {current_song.track_name} artist_name = {} song_key = {}></Song>
+            <div className = 'home-page'>
+                <div className = 'home-header'>
+                    <div className = 'home-app-title'>
+                        <h1> Spotify +</h1>
+                    </div>
+                </div>
+                <div className = 'home-body'>
+                    
+                </div>    
+            </div>         
         </div>
     )
 }

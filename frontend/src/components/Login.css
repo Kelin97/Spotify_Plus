@@ -1,0 +1,63 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: url(./images/record.jpg) no-repeat fixed center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 1000px;
+}
+
+/* Everything below is inside header container */
+.header {
+    padding: 30px;
+    width: 100%;
+    background: #1abc9c;   
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    align-self: stretch;
+    position: fixed;
+}
+
+/* Everything above is inside header container */
+
+/* Everything above is inside body container */
+.body {
+    height:fit-content; /* Changed this height */
+    padding-bottom: 60px;
+    width: 50%;
+    background-color: white;
+    background-size: 10%;
+    
+}
+
+.app-info {
+    color: black;
+    padding: 60px;
+}
+/* Everything above is inside body container   */
+
+
+.space {
+    padding: 70px;
+}
+
+/*
+html {
+    background: url(./images/record.jpg) no-repeat fixed center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: max-content;
+}
+*/
