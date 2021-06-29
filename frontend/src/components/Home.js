@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
+
 import Song from './Song';
+import NavbarComp from './NavbarComp'
+import Container from 'react-bootstrap/Container'
+
 import './Home.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function Home() {
@@ -20,7 +23,7 @@ function Home() {
         
         return items;
     }
-
+    
     
     // Use this later to save the refresh token
     // var setsession = window.sessionStorage.setItem("animals", "cat");
@@ -37,21 +40,26 @@ function Home() {
             .then(data => setSong(data))
         }, []
     )
-    console.log(current_song);
+    
     //const test = current_song.track_info.;
     //<Song song_name = {current_song.track_name} artist_name = {current_song.artist_name} song_key = {current_song.track_key}></Song>
-    return(
-        <div>
-            <div className = 'home-page'>
-                <div className = 'home-header'>
+
+    /*
+    <div className = 'home-header'>
                     <div className = 'home-app-title'>
-                        <h1> Spotify +</h1>
+                        <h1 style={{fontWeight: 600}}> Spotify +</h1>
                     </div>
                 </div>
-                <div className = 'home-body'>
+    */
+    return(
+        <div>
+            <NavbarComp username = 'fill'></NavbarComp>
+            <div className = 'home-body'>
+                <h1> Put content here </h1>
+                
+                <Song song_name = {current_song.track_name} artist_name = {current_song.artist_name} song_key = {current_song.track_key}></Song>
+            </div>    
                     
-                </div>    
-            </div>         
         </div>
     )
 }
