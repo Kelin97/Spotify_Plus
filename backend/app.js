@@ -13,8 +13,8 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = 'f91b256bb7d1470f8a76dd1016aba87c'; // Your client id
-var client_secret = '2ec9d79b75db43fdb294cdc30133fe93'; // Your secret
+var client_id = '-----------------'; // Your client id (sorry can't have this on github ;)
+var client_secret = '-------------'; // Your secret    (sorry can't have this on github ;)
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
 /**
